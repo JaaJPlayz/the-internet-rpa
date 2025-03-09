@@ -43,14 +43,28 @@ void automateContextMenu()
     driver.Navigate().GoToUrl(baseUrl);
 }
 
+void automateDragAndDrop()
+{
+    var dragAndDropLink = driver.FindElement(By.XPath("/html/body/div[2]/div/ul/li[10]/a"));
+    dragAndDropLink.Click();
+
+    var source = driver.FindElement(By.Id("column-a"));
+    var target = driver.FindElement(By.Id("column-b"));
+
+    Actions action = new Actions(driver);
+    action.DragAndDrop(source, target).Perform();
+
+    driver.Navigate().GoToUrl(baseUrl);
+}
+
 void applicationMenu()
 {
     int option = 0;
 
-    while (option != 3)
+    while (option != 4)
     {
         // Create a menu with the options for automation
-        string[] options = { "Automate Checkboxes", "Automate Context Menu", "Exit" };
+        string[] options = { "Automate Checkboxes", "Automate Context Menu", "Automate Drag and Drop", "Exit" };
 
         for (int i = 0; i < options.Length; i++)
         {
@@ -68,6 +82,9 @@ void applicationMenu()
                 automateContextMenu();
                 break;
             case 3:
+                automateDragAndDrop();
+                break;
+            case 4:
                 driver.Close();
                 break;
             default:
