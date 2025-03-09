@@ -43,11 +43,38 @@ void automateContextMenu()
     driver.Navigate().GoToUrl(baseUrl);
 }
 
+void applicationMenu()
+{
+    int option = 0;
 
+    while (option != 3)
+    {
+        // Create a menu with the options for automation
+        string[] options = { "Automate Checkboxes", "Automate Context Menu", "Exit" };
 
-// automateCheckboxes();
-automateContextMenu();
+        for (int i = 0; i < options.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {options[i]}");
+        }
 
+        option = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine("Press enter to exit. . .");
-Console.ReadLine();
+        switch (option)
+        {
+            case 1:
+                automateCheckboxes();
+                break;
+            case 2:
+                automateContextMenu();
+                break;
+            case 3:
+                driver.Close();
+                break;
+            default:
+                Console.WriteLine("Invalid option");
+                break;
+        }
+    }
+}
+
+applicationMenu();
