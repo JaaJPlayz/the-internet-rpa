@@ -57,14 +57,28 @@ void automateDragAndDrop()
     driver.Navigate().GoToUrl(baseUrl);
 }
 
+void automateDropdown()
+{
+    var dropdownLink = driver.FindElement(By.XPath("/html/body/div[2]/div/ul/li[11]/a"));
+    dropdownLink.Click();
+
+    var dropdown = driver.FindElement(By.Id("dropdown"));
+    dropdown.Click();
+
+    var option = driver.FindElement(By.XPath("/html/body/div[2]/div/div/select/option[2]"));
+    option.Click();
+
+    driver.Navigate().GoToUrl(baseUrl);
+}
+
 void applicationMenu()
 {
     int option = 0;
 
-    while (option != 4)
+    while (option != 5)
     {
         // Create a menu with the options for automation
-        string[] options = { "Automate Checkboxes", "Automate Context Menu", "Automate Drag and Drop", "Exit" };
+        string[] options = { "Automate Checkboxes", "Automate Context Menu", "Automate Drag and Drop", "Automate Dropdown", "Exit" };
 
         for (int i = 0; i < options.Length; i++)
         {
@@ -85,6 +99,9 @@ void applicationMenu()
                 automateDragAndDrop();
                 break;
             case 4:
+                automateDropdown();
+                break;
+            case 5:
                 driver.Close();
                 break;
             default:
