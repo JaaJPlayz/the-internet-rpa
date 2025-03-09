@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 using var driver = new ChromeDriver();
 
@@ -27,11 +28,26 @@ void automateContextMenu()
 {
     var contextMenuLink = driver.FindElement(By.XPath("/html/body/div[2]/div/ul/li[7]/a"));
     contextMenuLink.Click();
+
+    var box = driver.FindElement(By.XPath("//*[@id=\"hot-spot\"]"));
+
+    // Right click the box element
+    Actions action = new Actions(driver);
+    action.ContextClick(box).Perform();
+
+    var alert = driver.SwitchTo().Alert();
+    alert.Accept();
+
+    Thread.Sleep(1000);
+
+    driver.Navigate().GoToUrl(baseUrl);
 }
 
 
 
-automateCheckboxes();
+// automateCheckboxes();
+automateContextMenu();
+
 
 Console.WriteLine("Press enter to exit. . .");
 Console.ReadLine();
